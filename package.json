@@ -1,0 +1,23 @@
+{
+  "name": "funfun",
+  "version": "1.0.0",
+  "description": "Don't fear the monad",
+  "main": "-",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexRex/funfun.git"
+  },
+  "author": "Alex Torres <aletormat@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexRex/funfun/issues"
+  },
+  "homepage": "https://github.com/AlexRex/funfun#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "data.task": "^3.1.2"
+  }
+}
