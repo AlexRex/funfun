@@ -2,14 +2,18 @@ const Right = x => ({
   map: f => Right(f(x)),
   chain: f => f(x),
   fold: (f, g) => g(x),
-  inspect: () => `Right(${x})`
+  inspect: () => `Right(${x})`,
+  isLeft: () => false,
+  isRight: () => true
 });
 
 const Left = x => ({
   map: f => Left(x),
   chain: f => Left(x),
   fold: (f, g) => f(x),
-  inspect: () => `Left(${x})`
+  inspect: () => `Left(${x})`,
+  isLeft: () => true,
+  isRight: () => false
 });
 
 // Exercise 

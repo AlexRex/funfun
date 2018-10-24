@@ -17,9 +17,15 @@ const Task = fork => ({
 // Lift any value to a Task Type
 Task.of = value => Task((_, resolve) => resolve(value));
 
+Task.reject = error => Task((reject) => reject(error));
+
 Task.fromPromise = prom => Task((reject, resolve) =>
   prom.then(resolve).catch(reject)
 );
+
+Task.taskify = fn => (...params) => Task.fromPromise(fn(...params));
+
+Task.fromEither = either => either.fold(Task.reject, Task.of);
 
 const db = {
   value: 1,
@@ -35,13 +41,13 @@ const log = x => Task((reject, resolve) => {
 
 const add1 = x => x + 1;
 
-getFromDb('value')
-  .map(add1)
-  .chain(log)
-  .fork(
-    e => console.error(e),
-    s => console.log(s)
-  );
+// getFromDb('value')
+//   .map(add1)
+//   .chain(log)
+//   .fork(
+//     e => console.error(e),
+//     s => console.log(s)
+//   );
 
 module.exports = {
   Task

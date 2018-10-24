@@ -1,4 +1,4 @@
-const request = require('axios');
+const fetch = require('fetch');
 
 /**
  * First Part: 
@@ -57,7 +57,7 @@ const getFlickrUrlComp = searchTerm =>
     sanitizeSearchTermComp(searchTerm)
   )
 
-console.log(getFlickrUrlComp('&/=UniCoRn=/&'))
+// console.log(getFlickrUrlComp('&/=UniCoRn=/&'))
 
 /**
  * Third Part: Rewrite into a box (array)
@@ -119,7 +119,7 @@ const getFlickrUrlInARealBox = searchTerm =>
 // const getImages = async () => {
 //   const cleanTerm = sanitizeSearchTerm('?&/=CrazyUnicorn=/&?');
 //   const url = getFlickrUrl(cleanTerm);
-//   const res = await request(url, { json: true });
+//   const res = await fetch(url, { json: true });
 //   const { farm, server, id, secret } = res.data.photos.photo[0]
 //   return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_m.jpg`;
 // }

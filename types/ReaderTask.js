@@ -32,7 +32,7 @@ const getFromDb = key => ReaderTask((reject, resolve) => context => {
 });
 
 const log = x => ReaderTask((reject, resolve) => ctx => {
-  console.log(x); // Side Effect 
+  console.log(ctx); // Side Effect 
   resolve(x);
 });
 
