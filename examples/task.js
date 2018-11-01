@@ -32,3 +32,29 @@ app
     console.error,
     console.log
   );
+
+
+// Example 2
+
+
+const db = {
+  value: 1,
+  get: (key) => db[key] ? Promise.resolve(db[key]) : Promise.reject('No key')
+};
+
+const getFromDb = key => Task.fromPromise(db.get(key));
+
+const log = x => Task((reject, resolve) => {
+  console.log(x); // Side Effect
+  resolve(x);
+});
+
+const add1 = x => x + 1;
+
+getFromDb('value')
+  .map(add1)
+  .chain(log)
+  .fork(
+    e => console.error(e),
+    s => console.log(s)
+  );

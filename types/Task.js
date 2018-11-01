@@ -11,7 +11,8 @@ const Task = fork => ({
   chain: (fn) => Task((reject, resolve) => {
     fork(reject, x => fn(x).fork(reject, resolve))
   }),
-  inspect: () => `Task(${fork.toString()})`
+  inspect: () => `Task(${fork.toString()})`,
+  toPromise: () => new Promise((resolve, reject) => fork(reject, resolve))
 });
 
 // Lift any value to a Task Type
@@ -26,28 +27,6 @@ Task.fromPromise = prom => Task((reject, resolve) =>
 Task.taskify = fn => (...params) => Task.fromPromise(fn(...params));
 
 Task.fromEither = either => either.fold(Task.reject, Task.of);
-
-const db = {
-  value: 1,
-  get: (key) => db[key] ? Promise.resolve(db[key]) : Promise.reject('No key')
-};
-
-const getFromDb = key => Task.fromPromise(db.get(key));
-
-const log = x => Task((reject, resolve) => {
-  console.log(x); // Side Effect
-  resolve(x);
-});
-
-const add1 = x => x + 1;
-
-getFromDb('value')
-  .map(add1)
-  .chain(log)
-  .fork(
-    e => console.error(e),
-    s => console.log(s)
-  );
 
 module.exports = {
   Task

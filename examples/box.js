@@ -113,7 +113,7 @@ const getFlickrUrlInARealBox = searchTerm =>
   sanitizeSearchTermInARealBox(searchTerm)
   .map(s => interpolateSearchTermInARealBox(s))
 
-// console.log(getFlickrUrlInARealBox('&/=UniCoRn=/&'))
+console.log(getFlickrUrlInARealBox('&/=UniCoRn=/&'))
 
 module.exports = {
   Box

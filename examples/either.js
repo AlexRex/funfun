@@ -12,7 +12,7 @@ const getFlickrUrl = searchTerm =>
     .map(s => s.replace(/\/|&|=|¿/g, ''))
     .map(s => `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=419e118697f2352bb0cf953e41f9962e&text=${s}&format=json&nojsoncallback=1`);
 
-// getFlickrUrl(0); // Error 🤯
+// getFlickrUrl(0); // Error
 
 /**
  * Second Part: Right and Left types
@@ -20,19 +20,7 @@ const getFlickrUrl = searchTerm =>
  * - Error handling
  */
 
-const Right = x => ({
-  map: f => Right(f(x)), // Runs the func and wraps it in a Right
-  chain: f => f(x), // Runs the function and returns the value
-  fold: (f, g) => g(x),
-  inspect: () => `Right(${x})`
-});
-
-const Left = x => ({
-  map: f => Left(x),
-  chain: f => Left(x),
-  fold: (f, g) => f(x),
-  inspect: () => `Left(${x})`
-});
+const { Right, Left } = require('../types/Either');
 
 const checkType = type => value =>
   type === typeof value
