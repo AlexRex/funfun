@@ -41,13 +41,13 @@ const log = x => Task((reject, resolve) => {
 
 const add1 = x => x + 1;
 
-// getFromDb('value')
-//   .map(add1)
-//   .chain(log)
-//   .fork(
-//     e => console.error(e),
-//     s => console.log(s)
-//   );
+getFromDb('value')
+  .map(add1)
+  .chain(log)
+  .fork(
+    e => console.error(e),
+    s => console.log(s)
+  );
 
 module.exports = {
   Task

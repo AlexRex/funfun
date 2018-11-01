@@ -15,10 +15,13 @@ const getFirstElement = array => Task((reject, resolve) => array[0] ? resolve(ar
 const formatUrlForPhoto = ({ farm, server, id, secret }) =>
   `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_m.jpg`;
 
+const fetchTheImage = url => taskyFetch(url, { json: true });
+const parseJson = response => Task.fromPromise(response.json());
+
 const getImages = (searchTerm) =>
   Task.fromEither(getUrl(searchTerm))
-    .chain(url => taskyFetch(url, { json: true }))
-    .chain(res => Task.fromPromise(res.json()))
+    .chain(url => fetchTheImage(url))
+    .chain(res => parseJson(res))
     .chain(x => getFirstElement(x.photos.photo))
     .map(formatUrlForPhoto);
 

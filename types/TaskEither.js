@@ -36,8 +36,8 @@ const db = {
 
 // const getFromDb = key => TaskEither.fromPromise(db.get(key));
 const getFromDb = key => {
-  return TaskEither((x) => {
-    db.get(key).then(Right).catch(Left)
+  return TaskEither((resolve) => {
+    return resolve(db.get(key).then(Right).catch(Left))
   });
 }
 
@@ -48,14 +48,17 @@ const log = x => TaskEither((reject, resolve) => {
 const add1 = x => x + 1;
 
 getFromDb('value')
-  .map(add1)
-  .map(a => a + 4)
+  // .map(add1)
+  // .map(a => a + 4)
   // .chain(log)
   .run()
-  .then(r => r.fold(
-    e => console.log('Error', e),
-    s => console.log('Success', s)
-  ));
+  .then(r => {
+    console.log(r);
+    r.fold(
+      e => console.log('Error', e),
+      s => console.log('Success', s)
+    )
+  });
 
 module.exports = {
   TaskEither

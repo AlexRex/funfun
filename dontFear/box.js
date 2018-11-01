@@ -1,5 +1,3 @@
-const fetch = require('fetch');
-
 /**
  * First Part: 
  * - Pure function [X]
@@ -18,6 +16,7 @@ const sanitizeSearchTerm = searchTerm => {
   return cleanTerm;
 }
 
+// interpolateSearchTerm :: String -> String
 const interpolateSearchTerm = searchTerm => {
   const interpolatedUrl = `https://api.flickr.com/?text=${searchTerm}`;
 
@@ -115,16 +114,6 @@ const getFlickrUrlInARealBox = searchTerm =>
   .map(s => interpolateSearchTermInARealBox(s))
 
 // console.log(getFlickrUrlInARealBox('&/=UniCoRn=/&'))
-
-// const getImages = async () => {
-//   const cleanTerm = sanitizeSearchTerm('?&/=CrazyUnicorn=/&?');
-//   const url = getFlickrUrl(cleanTerm);
-//   const res = await fetch(url, { json: true });
-//   const { farm, server, id, secret } = res.data.photos.photo[0]
-//   return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_m.jpg`;
-// }
-
-// getImages().then(console.log)
 
 module.exports = {
   Box
